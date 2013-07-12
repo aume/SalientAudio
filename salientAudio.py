@@ -44,7 +44,8 @@ class MLRmodel:
         self.model.summary() 
         
     def predict(self, data):
-        return sum(self.coefficients*data) # typical mlr b1*x1 + b2*x2 + ... + bn*xn
+        print data
+        return sum(self.coefficients*data) # typical mlr b0 + b1*x1 + b2*x2 + ... + bn*xn
            
 class audio_affect:
     
@@ -85,7 +86,7 @@ class audio_affect:
         for i in xrange(0, len(fvecs), num_blocks_in_window):
             window = fvecs[i:i+num_blocks_in_window] # get the vectors for the window
             accum = zip(*window)
-            features = [0]
+            features = [1]
             # Do the bag of frames
             for cc in accum: # go through each dimension
                 n = len(cc)
@@ -112,7 +113,7 @@ class audio_affect:
 
 def main():
     predictioner = audio_affect('salientTraining.csv')
-    predictioner.process(sys.argv[1])
+    predictioner.process(sys.argv[1]) # this will be the audio file
     
 if __name__ == "__main__":
     main()
